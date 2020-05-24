@@ -1,22 +1,16 @@
-# Method 3
-# Using the infinite series 2/1 * 2/3 * 4/3 * 4/5 * 6/5 * 6/7 * ... = Pi / 2
+# Method 1
+# Using the infinite series 1/(1)^5 - 1/(3)^5 + 1/(5)^5 - 1/(7)^5 + ... = ((pi)^5)*(5/1536)
 
 import numpy as np
 import matplotlib.pyplot as plt
 Pi = np.pi
 
 
-initial_approximation_of_formula = 1                          # This will be the value of the formula till n steps
+initial_approximation_of_formula = 0                          # This will be the value of the formula till n steps
 initial_approximations_of_formula = []                        # This will be all of the n steps taken for the formula
 
-odd_value = 1
-even_vlaue = 0
-for n in range(1, 21):
-    if n % 2 == 0:
-        odd_value += 2
-    else:
-        even_vlaue += 2
-    initial_approximation_of_formula *= (even_vlaue)/(odd_value)
+for n in range(1, 201):
+    initial_approximation_of_formula += (1 / ((2*n-1)**5)) * (-1)**(n+1)
     initial_approximations_of_formula.append(initial_approximation_of_formula)
 
 
@@ -24,14 +18,14 @@ for n in range(1, 21):
 initial_approximations_of_formula = np.array(initial_approximations_of_formula)
 
 # Getting Pi for the formula
-approximations_of_pi = initial_approximations_of_formula * 2
+approximations_of_pi = np.power( (initial_approximations_of_formula) * (1536/5) , 0.2)
 
 plt.style.use('fivethirtyeight')
-plt.title('2/1 * 2/3 * 4/3 * 4/5 * 6/5 * 6/7 * ... = Pi / 2')
+plt.title('1/(1)^2 + 1/(2)^2 + 1/(3)^2 + 1/(4)^2 + ... = ((pi)^2)/6')
 plt.axhline(y=Pi, color='red', linewidth=1.5, linestyle='--')
 plt.axhline(y=0, color='black', linewidth=1)
 plt.axvline(x=0, color='black', linewidth=1)
-plt.plot(range(1, 21), approximations_of_pi, linewidth=2)
+plt.plot(range(1, 201), approximations_of_pi, linewidth=2)
 plt.legend()
 
-plt.show() 
+plt.show()
