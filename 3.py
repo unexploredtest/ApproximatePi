@@ -1,37 +1,22 @@
 # Method 3
-# Using the infinite series 2/1 * 2/3 * 4/3 * 4/5 * 6/5 * 6/7 * ... = Pi / 2
+# Using the infinite series 2/1 x 2/3 x 4/3 x 4/5 x 6/5 x 6/7 x ... = Pi / 2
 
-import numpy as np
-import matplotlib.pyplot as plt
-Pi = np.pi
+from functions import *
 
 
-initial_approximation_of_formula = 1                          # This will be the value of the formula till n steps
-initial_approximations_of_formula = []                        # This will be all of the n steps taken for the formula
-
-odd_value = 1
-even_vlaue = 0
-for n in range(1, 21):
+def operation(n):
     if n % 2 == 0:
-        odd_value += 2
+        even_value = n
+        odd_value = n+1
     else:
-        even_vlaue += 2
-    initial_approximation_of_formula *= (even_vlaue)/(odd_value)
-    initial_approximations_of_formula.append(initial_approximation_of_formula)
+        even_value = n+1
+        odd_value = n
+ 
+    result = (even_value)/(odd_value)
+    return result
 
+def operation_to_pi(n):
+    result = 2 * n
+    return result
 
-# Turning to an array to do operations
-initial_approximations_of_formula = np.array(initial_approximations_of_formula)
-
-# Getting Pi for the formula
-approximations_of_pi = initial_approximations_of_formula * 2
-
-plt.style.use('fivethirtyeight')
-plt.title('2/1 * 2/3 * 4/3 * 4/5 * 6/5 * 6/7 * ... = Pi / 2')
-plt.axhline(y=Pi, color='red', linewidth=1.5, linestyle='--')
-plt.axhline(y=0, color='black', linewidth=1)
-plt.axvline(x=0, color='black', linewidth=1)
-plt.plot(range(1, 21), approximations_of_pi, linewidth=2)
-plt.legend()
-
-plt.show() 
+graph_approximations(operation, operation_to_pi, product=True, infinte_series='2/1 x 2/3 x 4/3 x 4/5 x 6/5 x 6/7 x ... = Pi / 2')
